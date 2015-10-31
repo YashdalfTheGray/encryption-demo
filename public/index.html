@@ -2,7 +2,7 @@
 <html>
 <head>
 
-    <title>Encryption Demo</title>
+    <title>Encryption and Security</title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,6 +37,7 @@
     <script src="navigation/toolbar.js"></script>
     <script src="navigation/sidebar.js"></script>
     <script src="homeView/homeView.js"></script>
+    <script src="generateKeysView/generateKeysView.js"></script>
 
 </head>
 <body ng-app="encryptionDemo" layout="column">
@@ -46,8 +47,8 @@
             <md-button hide-gt-md class="md-icon-button" aria-label="Menu" ng-click="ctrl.showNav()">
                 <i class="material-icons icon-button-adjust">menu</i>
             </md-button>
-            <h2 ng-if="!ctrl.isHome()"><span><a ui-sref="home">Encryption Demo</a></span></h2>
-            <h2 ng-if="ctrl.isHome()"><span>Encryption Demo</span></h2>
+            <h2 ng-if="!ctrl.isHome()"><span><a ui-sref="home">Encryption and Security</a></span></h2>
+            <h2 ng-if="ctrl.isHome()"><span>Encryption and Security</span></h2>
         </div>
     </md-toolbar>
 

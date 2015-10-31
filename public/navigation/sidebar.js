@@ -4,20 +4,20 @@ angular.module('encryptionDemo')
 .controller('SidebarCtrl',
     [
         '$state', '$mdSidenav',
-        function($state) {
+        function($state, $mdSidenav) {
             "use strict";
 
             var vm = this;
 
             vm.goTo = function goToState(state) {
                 $state.go(state);
-                if(!$mdSidenav('services').isLockedOpen()) {
-                    $mdSidenav('services').close();
+                if(!$mdSidenav('demo').isLockedOpen()) {
+                    $mdSidenav('demo').close();
                 }
             };
 
             vm.demos = [
-                { name: 'Demo', state: 'demo-state' }
+                { name: 'Generate Keys', state: 'generate-keys' }
             ];
         }
     ]
