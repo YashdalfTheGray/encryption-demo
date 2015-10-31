@@ -1,0 +1,12 @@
+.icon-button-adjust {
+    vertical-align: middle;
+}
+
+.demo-list-item {
+    margin: 20px;
+}
+
+.demo-list-item > span {
+    cursor: pointer;
+    cursor: hand;
+}
