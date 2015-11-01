@@ -2,12 +2,23 @@
     <h2 flex>Encrypt</h2>
     <form flex name="newKeyForm">
         <div layout="column">
+            <md-input-container flex>
+                <label>Recipient</label>
+                <md-select ng-model="ctrl.recipient">
+                    <md-option ng-repeat="r in ctrl.keys" value="{{r.publicKey}}">
+                        {{r.name}}
+                    </md-option>
+                    <md-option disabled ng-show="ctrl.keys.length === 0">No available recipients</md-option>
+                </md-select>
+            </md-input-container>
             <md-input-container id="message-input-container" flex>
                 <label>Message to encrypt</label>
                 <textarea id="message-input" ng-model="ctrl.message" columns="3" md-maxlength="200"></textarea>
             </md-input-container>
             <p></p>
-            <md-button class="md-raised md-accent" ng-click="ctrl.encrypt()">Encrypt Message</md-button>
+            <md-button class="md-raised md-accent" ng-click="ctrl.encrypt()" ng-disabled="!ctrl.enableEncryption">
+                Encrypt Message
+            </md-button>
         </div>
     </form>
 
