@@ -1,3 +1,36 @@
 <md-content layout-padding>
     <h2 flex>Generate Keys</h2>
+    <form flex name="newKeyForm">
+        <div layout="column">
+            <md-input-container flex>
+                <label>Number of bits</label>
+                <input ng-model="ctrl.numberBits" required type="number">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Email</label>
+                <input ng-model="ctrl.email" required>
+            </md-input-container>
+            <md-input-container flex>
+                <label>Password</label>
+                <input ng-model="ctrl.password" required type="password">
+            </md-input-container>
+            <p></p>
+            <md-button class="md-raised md-accent" ng-click="ctrl.generate()">Generate</md-button>
+        </div>
+    </form>
+
+    <div class="spacer-lg"></div>
+
+    <md-content flex>
+        <div layout="row" layout-align="start center">
+            <h3>Generated Keys</h3>
+            <md-button class="md-icon-button" ng-click="ctrl.refresh()">
+                <i class="material-icons icon-button-adjust">refresh</i>
+            </md-button>
+        </div>
+        <h4>Public Key</h4>
+        <p><pre>{{ctrl.publicKey || "Key not generated"}}</pre></p>
+        <h4>Private Key</h4>
+        <p><pre>{{ctrl.privateKey || "Key not generated"}}</pre></p>
+    </md-content>
 </md-content>
