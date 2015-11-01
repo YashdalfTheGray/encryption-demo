@@ -24,6 +24,11 @@ angular.module('encryptionDemo',
                 url: '/generate',
                 templateUrl: 'generateKeysView/generateKeysView.tpl.html',
                 controller: 'GenerateKeysViewCtrl as ctrl'
+            })
+            .state('encrypt', {
+                url: '/encrypt',
+                templateUrl: 'encryptionView/encryptionView.tpl.html',
+                controller: 'EncryptionViewCtrl as ctrl'
             });
             $urlRouterProvider.otherwise('/');
 
