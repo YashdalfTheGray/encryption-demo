@@ -1,3 +1,20 @@
 <md-content layout-padding>
     <h2 flex>Encrypt</h2>
+    <form flex name="newKeyForm">
+        <div layout="column">
+            <md-input-container id="message-input-container" flex>
+                <label>Message to encrypt</label>
+                <textarea id="message-input" ng-model="ctrl.message" columns="3" md-maxlength="200"></textarea>
+            </md-input-container>
+            <p></p>
+            <md-button class="md-raised md-accent" ng-click="ctrl.encrypt()">Encrypt Message</md-button>
+        </div>
+    </form>
+
+    <div class="spacer-lg"></div>
+
+    <md-content flex>
+        <h3>Encrypted Message</h3>
+        <p><pre>{{ctrl.cipherText || "No message"}}</pre></p>
+    </md-content>
 </md-content>

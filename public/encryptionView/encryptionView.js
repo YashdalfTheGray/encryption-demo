@@ -3,14 +3,14 @@
 angular.module('encryptionDemo')
 .controller('EncryptionViewCtrl',
     [
-        '$window', '$mdToast',
-        function($window, $mdToast) {
+        '$window', '$firebaseObject', '$mdToast', 'clearInputSvc',
+        function($window, $firebaseObject, $mdToast, clearInputSvc) {
             "use strict";
 
             var vm = this;
-
-            vm.publicKey = $window.localStorage.getItem('openPGP.publicKey');
-            vm.privateKey = $window.localStorage.getItem('openPGP.privateKey');
+            var keysRef = new Firebase('https://encryption-demo.firebaseio.com/keys');
+            var messagesRef = new Firebase('https://encryption-demo.firebaseio.com/messages');
+            vm.serverKeys = $firebaseObject(keysRef);
 
             if (vm.publicKey && vm.privateKey) {
                 vm.enableEncryption = true;
@@ -23,6 +23,24 @@ angular.module('encryptionDemo')
                     .hideDelay(3000)
                 );
             }
+
+            vm.encrypt = function() {
+                var publicKey = $window.openpgp.key.readArmored(vm.serverKeys.public);
+                console.log(publicKey);
+
+                openpgp.encryptMessage(publicKey.keys, vm.message).then(function(cipherText) {
+                    console.log(vm.message);
+                    var messageToPush = messagesRef.push();
+
+                    messageToPush.set({ cipherText: cipherText });
+
+                    vm.cipherText = cipherText;
+                    clearInputSvc('message-input');
+                    console.log(vm.cipherText);
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            };
         }
     ]
 )
