@@ -34,6 +34,11 @@ angular.module('encryptionDemo',
                 url: '/decrypt',
                 templateUrl: 'decryptionView/decryptionView.tpl.html',
                 controller: 'DecryptionViewCtrl as ctrl'
+            })
+            .state('salt', {
+                url: '/salt',
+                templateUrl: 'saltView/saltView.tpl.html',
+                controller: 'SaltViewCtrl as ctrl'
             });
             $urlRouterProvider.otherwise('/');
 

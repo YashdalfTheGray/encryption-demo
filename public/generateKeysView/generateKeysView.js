@@ -8,25 +8,15 @@ angular.module('encryptionDemo')
             "use strict";
 
             var vm = this;
-            var randomArray = new Uint32Array(8);
-            var randomStrArray = [];
             var keysRef = new Firebase('https://encryption-demo.firebaseio.com/keys/');
 
             vm.numberBits = 2048;
-
-            function getSalt() {
-                $window.crypto.getRandomValues(randomArray);
-                _.forEach(randomArray, function(item) {
-                    randomStrArray.push(item.toString(16));
-                });
-                return randomStrArray.join('');
-            }
 
             function getKeys(bits, user, passphrase) {
                 var options = {
                     numBits: bits,
                     userId: user,
-                    passphrase: passphrase + getSalt()
+                    passphrase: passphrase
                 };
                 return $window.openpgp.generateKeyPair(options);
             }

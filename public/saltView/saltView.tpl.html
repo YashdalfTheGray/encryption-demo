@@ -1,0 +1,13 @@
+<md-content layout-padding>
+    <h2 flex>CSPRNG and Salts</h2>
+    
+    <md-content flex>
+        <p>This uses the <code>window.crypto.getRandomValues()</code> CSPRNG to generate salts.</p>
+        <md-input-container flex>
+            <label>Salt complexity</label>
+            <input ng-model="ctrl.complexity" type="number">
+        </md-input-container>
+        <md-button class="md-raised md-primary" ng-click="ctrl.generateSalt()" flex>Generate Salt</md-button>
+        <p>Generated salt is {{ctrl.salt || "0"}}</p>
+    </md-content>
+</md-content>
