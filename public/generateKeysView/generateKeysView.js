@@ -22,24 +22,40 @@ angular.module('encryptionDemo')
             }
 
             vm.generate = function() {
-                var options = {
-                    numBits: vm.numberBits,
-                    userId: vm.email,
-                    passphrase: vm.password.toString() + getSalt()
-                };
-                $window.openpgp.generateKeyPair(options).then(function(keypair) {
-                    $window.localStorage.setItem('openPGP.publicKey', keypair.publicKeyArmored);
-                    $window.localStorage.setItem('openPGP.privateKey', keypair.privateKeyArmored);
+                if (vm.numberBits && vm.email && vm.password) {
+                    var options = {
+                        numBits: vm.numberBits,
+                        userId: vm.email,
+                        passphrase: vm.password.toString() + getSalt()
+                    };
+                    $window.openpgp.generateKeyPair(options).then(function(keypair) {
+                        $window.localStorage.setItem('openPGP.publicKey', keypair.publicKeyArmored);
+                        $window.localStorage.setItem('openPGP.privateKey', keypair.privateKeyArmored);
+
+                        vm.email = undefined;
+                        vm.password = undefined;
+                        clearInputSvc(['email-input', 'password-input']);
+
+                        $mdToast.show(
+                            $mdToast.simple()
+                            .content('New keys have been generated!')
+                            .position('top right')
+                            .hideDelay(3000)
+                        );
+
+                        vm.refresh();
+                    }).catch(function(error) {
+                        console.log(error);
+                    });
+                }
+                else {
                     $mdToast.show(
                         $mdToast.simple()
-                        .content('Keys need to be generated before encrypting.')
+                        .content('Some information is missing!')
                         .position('top right')
                         .hideDelay(3000)
                     );
-                }).catch(function(error) {
-                    console.log(error);
-                });
-                clearInputSvc(['email-input', 'password-input']);
+                }
             };
 
             vm.refresh = function() {

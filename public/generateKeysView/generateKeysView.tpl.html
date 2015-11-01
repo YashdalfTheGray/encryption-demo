@@ -4,15 +4,15 @@
         <div layout="column">
             <md-input-container flex>
                 <label>Number of bits</label>
-                <input ng-model="ctrl.numberBits" required type="number">
+                <input ng-model="ctrl.numberBits" type="number">
             </md-input-container>
             <md-input-container id="email-input-container" flex>
                 <label>Email</label>
-                <input ng-model="ctrl.email" id="email-input" required>
+                <input ng-model="ctrl.email" id="email-input">
             </md-input-container>
             <md-input-container id="password-input-container" flex>
                 <label>Password</label>
-                <input ng-model="ctrl.password" id="email-input" required type="password">
+                <input ng-model="ctrl.password" id="password-input" type="password">
             </md-input-container>
             <p></p>
             <md-button class="md-raised md-accent" ng-click="ctrl.generate()">Generate</md-button>
@@ -34,8 +34,8 @@
             </md-button>
         </div>
         <h4>Public Key</h4>
-        <p><pre>{{ctrl.publicKey || "Key not generated"}}</pre></p>
+        <p><pre>{{ctrl.publicKey || "Key not available"}}</pre></p>
         <h4>Private Key</h4>
-        <p><pre>{{ctrl.privateKey || "Key not generated"}}</pre></p>
+        <p><pre>{{ctrl.privateKey || "Key not available"}}</pre></p>
     </md-content>
 </md-content>
