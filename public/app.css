@@ -10,3 +10,19 @@
     cursor: pointer;
     cursor: hand;
 }
+
+.spacer-sm {
+    margin: 5px;
+}
+
+.spacer-md {
+    margin: 10px;
+}
+
+.spacer-lg {
+    margin: 20px;
+}
+
+.spacer-hg {
+    margin: 50px;
+}
