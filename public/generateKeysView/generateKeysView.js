@@ -3,13 +3,14 @@
 angular.module('encryptionDemo')
 .controller('GenerateKeysViewCtrl',
     [
-        '$window', '$mdToast', 'clearInputSvc',
-        function($window, $mdToast, clearInputSvc) {
+        '$window', '$q', '$mdToast', 'clearInputSvc',
+        function($window, $q, $mdToast, clearInputSvc) {
             "use strict";
 
             var vm = this;
             var randomArray = new Uint32Array(8);
             var randomStrArray = [];
+            var keysRef = new Firebase('https://encryption-demo.firebaseio.com/keys/');
 
             vm.numberBits = 2048;
 
@@ -21,20 +22,25 @@ angular.module('encryptionDemo')
                 return randomStrArray.join('');
             }
 
+            function getKeys(bits, user, passphrase) {
+                var options = {
+                    numBits: bits,
+                    userId: user,
+                    passphrase: passphrase + getSalt()
+                };
+                return $window.openpgp.generateKeyPair(options);
+            }
+
             vm.generate = function() {
                 if (vm.numberBits && vm.email && vm.password) {
-                    var options = {
-                        numBits: vm.numberBits,
-                        userId: vm.email,
-                        passphrase: vm.password.toString() + getSalt()
-                    };
-                    $window.openpgp.generateKeyPair(options).then(function(keypair) {
+                    getKeys(vm.numberBits, vm.email, vm.password).then(function(keypair) {
                         $window.localStorage.setItem('openPGP.publicKey', keypair.publicKeyArmored);
                         $window.localStorage.setItem('openPGP.privateKey', keypair.privateKeyArmored);
 
                         vm.email = undefined;
                         vm.password = undefined;
-                        clearInputSvc(['email-input', 'password-input']);
+                        vm.name = undefined;
+                        clearInputSvc(['email-input', 'password-input', 'name-input']);
 
                         $mdToast.show(
                             $mdToast.simple()
@@ -42,8 +48,45 @@ angular.module('encryptionDemo')
                             .position('top right')
                             .hideDelay(3000)
                         );
+                    }).catch(function(error) {
+                        console.log(error);
+                    });
+                }
+                else {
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .content('Some information is missing!')
+                        .position('top right')
+                        .hideDelay(3000)
+                    );
+                }
+            };
 
-                        vm.refresh();
+            vm.publish = function() {
+                if (vm.numberBits && vm.email && vm.password && vm.name) {
+                    getKeys(vm.numberBits, vm.email, vm.password).then(function(keypair) {
+                        var keyToPush = keysRef.push();
+
+                        $window.localStorage.setItem('openPGP.publicKey', keypair.publicKeyArmored);
+                        $window.localStorage.setItem('openPGP.privateKey', keypair.privateKeyArmored);
+
+                        keyToPush.set({
+                            name: vm.name,
+                            publicKey: $window.localStorage.getItem('openPGP.publicKey')
+                        });
+
+                        vm.email = undefined;
+                        vm.password = undefined;
+                        vm.name = undefined;
+                        clearInputSvc(['email-input', 'password-input', 'name-input']);
+
+                        $mdToast.show(
+                            $mdToast.simple()
+                            .content('Key generated and published to firebase successfully.')
+                            .position('top right')
+                            .hideDelay(3000)
+                        );
+                        vm.nickname = undefined;
                     }).catch(function(error) {
                         console.log(error);
                     });
@@ -61,14 +104,14 @@ angular.module('encryptionDemo')
             vm.refresh = function() {
                 vm.publicKey = $window.localStorage.getItem('openPGP.publicKey');
                 vm.privateKey = $window.localStorage.getItem('openPGP.privateKey');
-            }
+            };
 
             vm.clearKeys = function() {
                 $window.localStorage.removeItem('openPGP.publicKey');
                 $window.localStorage.removeItem('openPGP.privateKey');
                 vm.publicKey = undefined;
                 vm.privateKey = undefined;
-            }
+            };
         }
     ]
 );

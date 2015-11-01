@@ -1,6 +1,6 @@
 <md-content layout-padding>
     <h2 flex>Generate Keys</h2>
-    <form flex name="newKeyForm">
+    <form flex>
         <div layout="column">
             <md-input-container flex>
                 <label>Number of bits</label>
@@ -14,12 +14,24 @@
                 <label>Password</label>
                 <input ng-model="ctrl.password" id="password-input" type="password">
             </md-input-container>
+            <md-input-container id="name-input-container" flex>
+                <label>Name</label>
+                <input ng-model="ctrl.name" id="name-input">
+            </md-input-container>
             <p></p>
-            <md-button class="md-raised md-accent" ng-click="ctrl.generate()">Generate</md-button>
+            <div layout="row" flex>
+                <md-button class="md-raised md-primary" ng-click="ctrl.generate()" flex>Generate</md-button>
+                <md-button class="md-raised md-accent" ng-click="ctrl.publish()" flex>Generate and Publish</md-button>
+            </div>
         </div>
     </form>
 
     <div class="spacer-lg"></div>
+
+    <div layout="row" flex>
+        
+        
+    </div>
 
     <md-content flex>
         <div layout="row" layout-align="start center">
