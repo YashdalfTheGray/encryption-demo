@@ -3,12 +3,13 @@
 angular.module('encryptionDemo')
 .controller('GenerateKeysViewCtrl',
     [
-        '$window', '$q', '$mdToast', 'clearInputSvc',
-        function($window, $q, $mdToast, clearInputSvc) {
+        '$window', '$q', '$firebaseArray', '$mdToast', 'clearInputSvc',
+        function($window, $q, $firebaseArray, $mdToast, clearInputSvc) {
             "use strict";
 
             var vm = this;
             var keysRef = new Firebase('https://encryption-demo.firebaseio.com/keys/');
+            var keysArray = $firebaseArray(keysRef);
 
             vm.numberBits = 2048;
 
@@ -59,6 +60,7 @@ angular.module('encryptionDemo')
 
                         $window.localStorage.setItem('openPGP.publicKey', keypair.publicKeyArmored);
                         $window.localStorage.setItem('openPGP.privateKey', keypair.privateKeyArmored);
+                        $window.localStorage.setItem('openPGP.firebaseId', keyToPush.key());
 
                         keyToPush.set({
                             name: vm.name,
@@ -97,8 +99,13 @@ angular.module('encryptionDemo')
             };
 
             vm.clearKeys = function() {
+                var keyId = $window.localStorage.getItem('openPGP.firebaseId');
                 $window.localStorage.removeItem('openPGP.publicKey');
                 $window.localStorage.removeItem('openPGP.privateKey');
+                if (keyId) {
+                    keysArray.$remove(keysArray.$indexFor($window.localStorage.getItem('openPGP.firebaseId')));
+                }
+                $window.localStorage.removeItem('openPGP.firebaseId');
                 vm.publicKey = undefined;
                 vm.privateKey = undefined;
             };
