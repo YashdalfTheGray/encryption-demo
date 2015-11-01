@@ -13,9 +13,6 @@ angular.module('encryptionDemo')
 
             vm.numberBits = 2048;
 
-            vm.email = "test.testerson@testdomain.com";
-            vm.password = "SierraControllerAmplifierLake";
-
             function getSalt() {
                 $window.crypto.getRandomValues(randomArray);
                 _.forEach(randomArray, function(item) {
