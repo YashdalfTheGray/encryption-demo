@@ -3,8 +3,8 @@
 angular.module('encryptionDemo')
 .controller('GenerateKeysViewCtrl',
     [
-        '$window',
-        function($window) {
+        '$window', '$mdToast', 'clearInputSvc',
+        function($window, $mdToast, clearInputSvc) {
             "use strict";
 
             var vm = this;
@@ -30,9 +30,16 @@ angular.module('encryptionDemo')
                 $window.openpgp.generateKeyPair(options).then(function(keypair) {
                     $window.localStorage.setItem('openPGP.publicKey', keypair.publicKeyArmored);
                     $window.localStorage.setItem('openPGP.privateKey', keypair.privateKeyArmored);
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .content('Keys need to be generated before encrypting.')
+                        .position('top right')
+                        .hideDelay(3000)
+                    );
                 }).catch(function(error) {
                     console.log(error);
                 });
+                clearInputSvc(['email-input', 'password-input']);
             };
 
             vm.refresh = function() {

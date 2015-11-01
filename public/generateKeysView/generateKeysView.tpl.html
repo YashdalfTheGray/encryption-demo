@@ -6,13 +6,13 @@
                 <label>Number of bits</label>
                 <input ng-model="ctrl.numberBits" required type="number">
             </md-input-container>
-            <md-input-container flex>
+            <md-input-container id="email-input-container" flex>
                 <label>Email</label>
-                <input ng-model="ctrl.email" required>
+                <input ng-model="ctrl.email" id="email-input" required>
             </md-input-container>
-            <md-input-container flex>
+            <md-input-container id="password-input-container" flex>
                 <label>Password</label>
-                <input ng-model="ctrl.password" required type="password">
+                <input ng-model="ctrl.password" id="email-input" required type="password">
             </md-input-container>
             <p></p>
             <md-button class="md-raised md-accent" ng-click="ctrl.generate()">Generate</md-button>
@@ -25,9 +25,11 @@
         <div layout="row" layout-align="start center">
             <h3>Generated Keys</h3>
             <md-button class="md-icon-button" ng-click="ctrl.refresh()">
+                <md-tooltip>Reload Keys</md-tooltip>
                 <i class="material-icons icon-button-adjust">refresh</i>
             </md-button>
             <md-button class="md-icon-button" ng-click="ctrl.clearKeys()">
+                <md-tooltip>Clear Keys</md-tooltip>
                 <i class="material-icons icon-button-adjust">clear</i>
             </md-button>
         </div>
