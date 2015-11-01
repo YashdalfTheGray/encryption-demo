@@ -1,3 +1,31 @@
 <md-content layout-padding>
     <h2 flex>Decrypt</h2>
+    <form flex>
+        <div layout="column">
+            <md-input-container flex>
+                <label>Message to decrypt</label>
+                <md-select ng-model="ctrl.message">
+                    <md-option ng-repeat="m in ctrl.messages" value="{{m}}">
+                        {{m.$id}}
+                    </md-option>
+                    <md-option disabled ng-show="ctrl.messages.length === 0">No available messages</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container id="password-input-container" flex>
+                <label>Password</label>
+                <input ng-model="ctrl.password" id="password-input" type="password">
+            </md-input-container>
+            <p></p>
+            <md-button class="md-raised md-accent" ng-click="ctrl.decrypt()" ng-disabled="!ctrl.enableDecryption">
+                Decrypt Message
+            </md-button>
+        </div>
+    </form>
+
+    <div class="spacer-lg"></div>
+
+    <md-content flex>
+        <h3>Decrypted Message</h3>
+        <p><pre>{{ctrl.plainText || "No message"}}</pre></p>
+    </md-content>
 </md-content>
