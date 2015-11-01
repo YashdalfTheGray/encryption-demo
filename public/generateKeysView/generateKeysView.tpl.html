@@ -27,6 +27,9 @@
             <md-button class="md-icon-button" ng-click="ctrl.refresh()">
                 <i class="material-icons icon-button-adjust">refresh</i>
             </md-button>
+            <md-button class="md-icon-button" ng-click="ctrl.clearKeys()">
+                <i class="material-icons icon-button-adjust">clear</i>
+            </md-button>
         </div>
         <h4>Public Key</h4>
         <p><pre>{{ctrl.publicKey || "Key not generated"}}</pre></p>

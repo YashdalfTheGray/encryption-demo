@@ -39,6 +39,13 @@ angular.module('encryptionDemo')
                 vm.publicKey = $window.localStorage.getItem('openPGP.publicKey');
                 vm.privateKey = $window.localStorage.getItem('openPGP.privateKey');
             }
+
+            vm.clearKeys = function() {
+                $window.localStorage.removeItem('openPGP.publicKey');
+                $window.localStorage.removeItem('openPGP.privateKey');
+                vm.publicKey = undefined;
+                vm.privateKey = undefined;
+            }
         }
     ]
 );
