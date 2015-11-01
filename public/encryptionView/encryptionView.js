@@ -44,6 +44,7 @@ angular.module('encryptionDemo')
 
                     vm.cipherText = cipherText;
                     vm.message = undefined;
+                    vm.recipient = undefined;
                     clearInputSvc('message-input');
                 }).catch(function(error) {
                     console.log(error);
