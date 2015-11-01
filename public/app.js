@@ -6,7 +6,8 @@ angular.module('encryptionDemo',
         'ui.router',
         'ngAnimate',
         'ngMaterial',
-        'firebase'
+        'firebase',
+        'ngStorage'
     ]
 )
 .config([
