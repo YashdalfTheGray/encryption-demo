@@ -18,7 +18,8 @@ angular.module('encryptionDemo')
 
             vm.demos = [
                 { name: 'Generate Keys', state: 'generate-keys' },
-                { name: 'Encrypt', state: 'encrypt' }
+                { name: 'Encrypt', state: 'encrypt' },
+                { name: 'Decrypt', state: 'decrypt' }
             ];
         }
     ]
