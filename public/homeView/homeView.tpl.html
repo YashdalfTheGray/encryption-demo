@@ -1,3 +1,21 @@
 <md-content layout-padding>
-    <h2 flex>This page will provide general information about encryption and security</h2>
+    <h2 flex>OpenPGP</h2>
+    <p flex>Pretty Good Privacy (PGP) is a data encryption standard created by Phil Zimmermann in 1991. It uses a combination of symmetric-key cryptography and public-key cryptography. it assures both confidentiality and authenticity of the information.</p>
+
+    <p flex>OpenPGP.js is an open-sourced implementation of PGP written in JavaScript. It offers three functions, <code>openpgp.generateKeyPair()</code> to generate a public-private key pair, <code>openpgp.encryptMessage()</code> to encrypt messages and <code>openpgp.decryptMessage()</code> to decrypt messages.</p>
+
+    <div class="spacer-md"></div>
+
+    <h2 flex>Potential concerns</h2>
+    <md-list flex>
+        <md-list-item>- SSL is still a requirement, even with this kind of exchange.</md-list-item>
+        <md-list-item>- The private key should never be shared with anyone and shouldn't be put on a server.</md-list-item>
+        <md-list-item>- Encryption should be applied with care as the operation is not without a cost.</md-list-item>
+    </md-list>
+
+    <div class="spacer-md"></div>
+
+    <h2 flex>A note on <code>window.crypto</code></h2>
+    <p flex><code>window.crypto</code> is the native javascript cryptography library. As of right now, the most supported operation is <code>window.crypto.getRandomValues()</code>. The salting demo of this app uses <code>getRandomValues()</code> to generate a random salt.</p>
+    <p flex>There is a Web Cryptography API standard in the works which can be accessed through the <code>window.crypto.subtle</code> object. This includes a lot of the same functionality as OpenPGP.js and some more. OpenPGP.js is set up to use the Web Cryptography API when it is available and fall back to the OpenPGP.js implementation when it is not.</p>
 </md-content>
